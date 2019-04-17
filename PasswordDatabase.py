@@ -1,4 +1,6 @@
 import blowfish
+import json
+import sqlite3
 
 
 class PasswordDatabase:
@@ -57,4 +59,17 @@ class PasswordDatabase:
     def encrypt_password(self, password):
         salted = self.__cipher.encrypt_block(bytes(password, "utf-8"))
         return salted
+
+    def generate_object_json(self):
+        json_build = {
+            "username": self.__username,
+            "password": self.password,
+            "password_type": self.__password_type,
+            "short_desc": self.__short_desc,
+            "long_desc": self.__long_desc
+        }
+
+        out = json.dumps(json_build)
+        return out
+
 
